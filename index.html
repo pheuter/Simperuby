@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Simperuby by pheuter</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Simperuby</h1>
+        <p>A Ruby client for the Simperium API</p>
+        <p class="view"><a href="https://github.com/pheuter/Simperuby">View the Project on GitHub <small>pheuter/Simperuby</small></a></p>
+        <ul>
+          <li><a href="https://github.com/pheuter/Simperuby/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/pheuter/Simperuby/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/pheuter/Simperuby">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>Simperuby</h3>
+
+<p><strong>Simperuby</strong> is a Ruby client for the <a href="https://simperium.com/overview/">Simperium</a> API.</p>
+
+<h3>Usage</h3>
+
+<p><code>gem install simperuby</code></p>
+
+<div class="highlight">
+<pre><span class="nb">require</span> <span class="s1">'simperuby'</span>
+<span class="n">client</span> <span class="o">=</span> <span class="no">Simperuby</span><span class="o">.</span><span class="n">new</span> <span class="ss">:app_id</span> <span class="o">=&gt;</span> <span class="s1">'appid'</span><span class="p">,</span> <span class="ss">:api_key</span> <span class="o">=&gt;</span> <span class="s1">'apikey'</span>
+</pre>
+</div>
+
+
+<h4>Creating a new user</h4>
+
+<div class="highlight">
+<pre><span class="n">client</span><span class="o">.</span><span class="n">create</span> <span class="s1">'user@email.com'</span><span class="p">,</span> <span class="s1">'password'</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"username"</span><span class="o">=&gt;</span><span class="s2">"user@email.com"</span><span class="p">,</span> <span class="s2">"access_token"</span><span class="o">=&gt;</span><span class="s2">"9c0624b72a3e4e818dcf7e24ec1a52d8"</span><span class="p">,</span> <span class="s2">"userid"</span><span class="o">=&gt;</span><span class="s2">"06ab494e1bc34cec0dd7ab36c36002fd"</span><span class="p">}</span>
+</pre>
+</div>
+
+
+<p><em><strong>Note</strong>: creating a user automatically authorizes client</em></p>
+
+<h4>Authorizing an existing user</h4>
+
+<div class="highlight">
+<pre><span class="n">client</span><span class="o">.</span><span class="n">authorize</span> <span class="s1">'user@email.com'</span><span class="p">,</span> <span class="s1">'password'</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"username"</span><span class="o">=&gt;</span><span class="s2">"user@email.com"</span><span class="p">,</span> <span class="s2">"access_token"</span><span class="o">=&gt;</span><span class="s2">"9c0624b72a3e4e818dcf7e24ec1a52d8"</span><span class="p">,</span> <span class="s2">"userid"</span><span class="o">=&gt;</span><span class="s2">"06ab494e1bc34cec0dd7ab36c36002fd"</span><span class="p">}</span>
+</pre>
+</div>
+
+
+<h4>Create new object</h4>
+
+<div class="highlight">
+<pre><span class="n">client</span><span class="o">[</span><span class="s1">'testbucket'</span><span class="o">].</span><span class="n">new</span> <span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s2">"An Amazing Day"</span><span class="p">,</span> <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="s2">"Anonymous"</span>
+<span class="o">=&gt;</span> <span class="s2">"wJhn3ZOdZDsgJWt6SLq3oq8zrz4R5zyE"</span>
+</pre>
+</div>
+
+
+<h4>Retrieve object data</h4>
+
+<div class="highlight">
+<pre><span class="n">client</span><span class="o">[</span><span class="s1">'testbucket'</span><span class="o">][</span><span class="s1">'wJhn3ZOdZDsgJWt6SLq3oq8zrz4R5zyE'</span><span class="o">]</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"author"</span><span class="o">=&gt;</span><span class="s2">"Anonymous"</span><span class="p">,</span> <span class="s2">"title"</span><span class="o">=&gt;</span><span class="s2">"An Amazing Day"</span><span class="p">}</span> 
+</pre>
+</div>
+
+
+<h4>Update an object</h4>
+
+<div class="highlight">
+<pre><span class="n">client</span><span class="o">[</span><span class="s1">'testbucket'</span><span class="o">][</span><span class="s1">'wJhn3ZOdZDsgJWt6SLq3oq8zrz4R5zyE'</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="s2">"Me"</span><span class="p">,</span> <span class="ss">:year</span> <span class="o">=&gt;</span> <span class="mi">2012</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:author</span><span class="o">=&gt;</span><span class="s2">"Me"</span><span class="p">,</span> <span class="ss">:year</span><span class="o">=&gt;</span><span class="mi">2012</span><span class="p">}</span>
+</pre>
+</div>
+
+
+<p><em><strong>Note</strong>: this does not replace the original object, only updates/inserts provided attributes</em></p>
+
+<h4>Delete object</h4>
+
+<div class="highlight">
+<pre><span class="n">client</span><span class="o">[</span><span class="s1">'testbucket'</span><span class="o">].</span><span class="n">delete</span> <span class="s1">'wJhn3ZOdZDsgJWt6SLq3oq8zrz4R5zyE'</span>
+</pre>
+</div>
+
+
+<h4>Retrieve items in bucket</h4>
+
+<div class="highlight">
+<pre><span class="n">client</span><span class="o">[</span><span class="s1">'testbucket'</span><span class="o">].</span><span class="n">index</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"current"</span><span class="o">=&gt;</span><span class="s2">"4fab239737a4015dce203f5f"</span><span class="p">,</span> <span class="s2">"index"</span><span class="o">=&gt;[</span><span class="p">{</span><span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"wJhn3ZOdZDsgJWt6SLq3oq8zrz4R5zyE"</span><span class="p">,</span> <span class="s2">"v"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">}</span><span class="o">]</span><span class="p">}</span>
+
+<span class="n">client</span><span class="o">[</span><span class="s1">'testbucket'</span><span class="o">].</span><span class="n">index</span> <span class="ss">:data</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:limit</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+<span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"current"</span><span class="o">=&gt;</span><span class="s2">"4fab239737a4015dce203f5f"</span><span class="p">,</span> <span class="s2">"index"</span><span class="o">=&gt;[</span><span class="p">{</span><span class="s2">"d"</span><span class="o">=&gt;</span><span class="p">{</span><span class="s2">"year"</span><span class="o">=&gt;</span><span class="mi">2012</span><span class="p">,</span> <span class="s2">"author"</span><span class="o">=&gt;</span><span class="s2">"Me"</span><span class="p">,</span> <span class="s2">"title"</span><span class="o">=&gt;</span><span class="s2">"An Amazing Day"</span><span class="p">},</span> <span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"wJhn3ZOdZDsgJWt6SLq3oq8zrz4R5zyE"</span><span class="p">,</span> <span class="s2">"v"</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">}</span><span class="o">]</span><span class="p">,</span> <span class="s2">"mark"</span><span class="o">=&gt;</span><span class="s2">"4fab239737a4015dce203f5f"</span><span class="p">}</span> 
+</pre>
+</div>
+
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/pheuter">pheuter</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
