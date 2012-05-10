@@ -10,3 +10,7 @@
 require 'simperuby'
 client = Simperuby.new :app_id => 'appid', :api_key => 'apikey'
 ```
+
+## More info
+
+[Homepage](http://pheuter.github.com/Simperuby)
